@@ -90,20 +90,29 @@
       const filterKnapper = document.querySelectorAll("nav button");
       const template = document.querySelector("template");
 
-      let retter;
+      let menu;
       let filter = "alle";
 
       async function hentData() {
         const resspons = await fetch(url, options);
-        retter = await resspons.json();
+        menu = await resspons.json();
+        console.log(menu);
         visMenu();
+        start();
+      }
+
+      function start() {
+        console.log("virker");
+        filterKnapper.forEach((knap) =>
+          knap.addEventListener("click", filterRetter)
+        );
       }
 
       function filterRetter() {
         filter = this.dataset.kategori;
         console.log("filter", filter);
-        filterMenu();
-        header.textContent = this.textContent;
+        visMenu();
+        // header.textContent = this.textContent;
       }
 
       function visMenu() {
@@ -111,8 +120,7 @@
         const temp = document.querySelector("template");
         section.textContent = "";
 
-        retter.forEach((mad) => {
-          console.log("kategori", mad.kategori);
+        menu.forEach((mad) => {
           if (filter == mad.kategori || filter == "alle") {
             const klon = temp.cloneNode(true).content;
             klon.querySelector("img").src = `medium/${mad.billednavn}-md.jpg`;
