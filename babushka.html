@@ -4,9 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap"
+      rel="stylesheet"
+    />
     <title>Bistro Babushka</title>
     <style>
       * {
+        margin: 0%;
         box-sizing: border-box;
       }
 
@@ -19,15 +26,29 @@
         max-width: 100%;
       }
 
-      #modal {
-        display: none;
+      #hero {
+        background: url(hero.jpg) no-repeat center top;
+        display: grid;
+        grid-template-columns: minmax(1rem, 1fr) minmax(0, 1100px) minmax(
+            1rem,
+            1fr
+          );
+
+        grid-template-rows: 1fr auto 1fr;
+        background-size: cover;
+        height: 500px;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 4px;
       }
 
       section {
         margin: 5px;
         padding: 5px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       }
 
       nav {
@@ -36,7 +57,14 @@
 
       h1 {
         text-align: center;
-        font-family: sans-serif;
+        font-family: "Kelly Slab";
+        grid-row: 2;
+        grid-column: 2;
+      }
+
+      p {
+        gap: 10px;
+        padding: 5px;
       }
 
       article {
@@ -48,7 +76,9 @@
     </style>
   </head>
   <body>
-    <h1>Bistro Babushka</h1>
+    <div id="hero">
+      <h1>Bistro Babushka</h1>
+    </div>
     <nav>
       <button data-kategori="alle" class="valgt">Alle</button>
       <button data-kategori="forretter">Forretter</button>
@@ -57,14 +87,7 @@
       <button data-kategori="desserter">Desserter</button>
       <button data-kategori="drikkevarer">Drikkevarer</button>
     </nav>
-    <aside id="modal">
-      <article>
-        <img src="" alt="" />
-        <h2></h2>
-        <p></p>
-        <p></p>
-      </article>
-    </aside>
+
     <section></section>
     <template>
       <article>
@@ -77,7 +100,6 @@
       </article>
     </template>
     <script>
-      const modal = document.querySelector("#modal");
       const nav = document.querySelector("nav");
       const url = "https://babushka-dd8a.restdb.io/rest/menu";
       const key = "600ec2fb1346a1524ff12de4";
@@ -126,7 +148,8 @@
             klon.querySelector("img").src = `medium/${mad.billednavn}-md.jpg`;
 
             klon.querySelector("h2").textContent = mad.navn;
-            klon.querySelector(".pris").textContent = mad.pris;
+            klon.querySelector(".pris").textContent =
+              "Pris: " + mad.pris + "Kr";
             klon.querySelector(".kategori").textContent = mad.kategori;
             klon.querySelector(".kortbeskrivelse").textContent =
               mad.kortbeskrivelse;
