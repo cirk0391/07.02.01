@@ -131,6 +131,10 @@
             klon.querySelector(".kortbeskrivelse").textContent =
               mad.kortbeskrivelse;
 
+            klon.querySelector("article").addEventListener("click", () => {
+              location.href = `babushka_singelview.html?id=${mad._id}`;
+            });
+
             section.appendChild(klon);
           }
         });

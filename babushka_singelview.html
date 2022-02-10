@@ -12,10 +12,47 @@
       <article>
         <img src="" alt="" />
         <h2></h2>
-        <p></p>
-        <p></p>
+        <p class="kategori"></p>
+        <p class="navn"></p>
+        <p class="kortbeskrivelse"></p>
+        <p class="pris"></p>
       </article>
     </main>
-    <script></script>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentid = urlParams.get("id");
+      console.log({ currentid });
+      let mad;
+
+      const url = `https://babushka-dd8a.restdb.io/rest/menu/${currentid}`;
+      const key = "600ec2fb1346a1524ff12de4";
+
+      async function hentData() {
+        console.log("hentData");
+        const respons = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "x-apikey": key,
+          },
+        });
+        mad = await respons.json();
+        console.log({ mad });
+        vis();
+      }
+
+      function vis() {
+        console.log("vis");
+        document.querySelector("h2").textContent = mad.navn;
+        document.querySelector(".pris").textContent = mad.pris;
+        document.querySelector(".kategori").textContent = mad.kategori;
+        document.querySelector("img").src = `medium/${mad.billednavn}-md.jpg`;
+      }
+      hentData();
+
+      document.querySelector("button").addEventListener("click", () => {
+        history.back();
+      });
+    </script>
   </body>
 </html>
